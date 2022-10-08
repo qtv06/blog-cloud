@@ -82,5 +82,5 @@ test:
 production:
   <<: *default
   database: blog_production
-  username: blog
-  password: <%= ENV['BLOG_DATABASE_PASSWORD'] %>
+  username: <%= ENV.fetch("DATABASE_USERNAME") { blog } %>
+  password: <%= ENV.fetch("DATABASE_PASSWORD") { 123456 } %>

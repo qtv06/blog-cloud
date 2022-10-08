@@ -1,0 +1,24 @@
+version: 0.0
+os: linux
+files:
+  - source: ./
+    destination: /home/deploy/blog-cloud
+permissions:
+  - object: /home/deploy
+    owner: deploy
+    group: deploy
+    pattern: "*"
+hooks:
+  BeforeInstall:
+    - location: ./script/before_install.sh
+      timeout: 300
+  AfterInstall:
+    - location: ./script/after_install.sh
+      timeout: 180
+  # ApplicationStart:
+  #   - location: Scripts/RunFunctionalTests.sh
+  #     timeout: 3600
+  # ValidateService:
+  #   - location: Scripts/MonitorService.sh
+  #     timeout: 3600
+  #     runas: codedeployuser
