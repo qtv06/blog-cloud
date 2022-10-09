@@ -10,6 +10,8 @@ RELEASE_FOLDER=$(date '+%Y%m%d%H%M%S')
 echo -e "${RED}After Install"
 # echo $(ls)
 
+sudo chown -R deploy:deploy /home/deploy/blog-cloud
+
 # 1 update shared file, folder
 if ! [ -d /var/www/rails_app/shared ]; then
   mkdir -p /var/www/rails_app/shared
