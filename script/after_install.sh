@@ -10,7 +10,7 @@ RELEASE_FOLDER=$(date '+%Y%m%d%H%M%S')
 echo -e "${RED}After Install${NC}"
 # echo $(ls)
 
-sudo chown -r deploy:deploy /home/deploy/blog-cloud
+sudo chown -R deploy:deploy /home/deploy/blog-cloud
 
 # 1 update shared file, folder
 if ! [ -d /var/www/rails_app/shared ]; then
@@ -61,7 +61,7 @@ RAILS_ENV=production /home/deploy/.rbenv/shims/bundle exec rake db:migrate
 ln -s /var/www/rails_app/releases/$RELEASE_FOLDER /var/www/rails_app/releases/current
 mv -f /var/www/rails_app/releases/current /var/www/rails_app/
 
-sudo chown -r deploy:deploy /var/www/rails_app/
+sudo chown -R deploy:deploy /var/www/rails_app/
 
 # restart nginx
 sudo service puma restart
