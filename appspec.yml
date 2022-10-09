@@ -11,10 +11,12 @@ permissions:
 hooks:
   BeforeInstall:
     - location: ./script/before_install.sh
+      run_as: deploy
       timeout: 300
-  # AfterInstall:
-  #   - location: ./script/after_install.sh
-  #     timeout: 180
+  AfterInstall:
+    - location: ./script/after_install.sh
+      run_as: deploy
+      timeout: 180
   # ApplicationStart:
   #   - location: Scripts/RunFunctionalTests.sh
   #     timeout: 3600
