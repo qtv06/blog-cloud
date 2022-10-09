@@ -18,6 +18,9 @@ if ! [ -d /var/www/rails_app/shared ]; then
   mkdir -p /var/www/rails_app/shared/bundle
   mkdir -p /var/www/rails_app/shared/log
   mkdir -p /var/www/rails_app/shared/config
+  mkdir -p /var/www/rails_app/shared/tmp
+  mkdir -p /var/www/rails_app/shared/tmp/pids
+  mkdir -p /var/www/rails_app/shared/tmp/sockets
 fi
 
 aws s3 cp s3://blog-cloud-codedeploy/.env /var/www/rails_app/shared
