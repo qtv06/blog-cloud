@@ -64,5 +64,6 @@ mv -f /var/www/rails_app/releases/current /var/www/rails_app/
 sudo chown -R deploy:deploy /var/www/rails_app/
 
 # restart nginx
+sudo systemctl daemon-reload
 sudo service puma restart
 sudo service nginx restart
