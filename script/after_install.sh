@@ -8,6 +8,7 @@ NC='\033[0m'
 RELEASE_FOLDER=$(date '+%Y%m%d%H%M%S')
 
 echo -e "${RED}After Install${NC}"
+echo -e "---------${RED}whoami: $(whoami)${NC}--------"
 # echo $(ls)
 
 sudo chown -R deploy:deploy /home/deploy/blog-cloud
@@ -20,7 +21,7 @@ if ! [ -d /var/www/rails_app/shared ]; then
   mkdir -p /var/www/rails_app/shared/config
   mkdir -p /var/www/rails_app/shared/tmp
   mkdir -p /var/www/rails_app/shared/tmp/pids
-  mkdir -p /var/www/rails_app/shared/tmp/sockets
+  mkdir -p /var/www/rails_app/shared/tmp/socke
 fi
 
 aws s3 cp s3://blog-cloud-codedeploy/.env /var/www/rails_app/shared
