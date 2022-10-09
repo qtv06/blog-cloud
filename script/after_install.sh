@@ -43,7 +43,7 @@ ln -s /var/www/rails_app/shared/.env /var/www/rails_app/releases/$RELEASE_FOLDER
 
 ln -s /var/www/rails_app/shared/credentials.yml.enc /var/www/rails_app/releases/$RELEASE_FOLDER/config
 
-ln -s /var/www/rails_app/shared/puma.rb /var/www/rails_app/releases/$RELEASE_FOLDER/puma.rb
+ln -s /var/www/rails_app/shared/puma.rb /var/www/rails_app/releases/$RELEASE_FOLDER/config
 
 ln -s /var/www/rails_app/shared/bundle /var/www/rails_app/releases/$RELEASE_FOLDER/vendor/bundle
 
