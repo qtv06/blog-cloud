@@ -10,7 +10,7 @@ RELEASE_FOLDER=$(date '+%Y%m%d%H%M%S')
 echo -e "${RED}After Install${NC}"
 # echo $(ls)
 
-sudo chown -R deploy:deploy /home/deploy/blog-cloud
+sudo chown -r deploy:deploy /home/deploy/blog-cloud
 
 # 1 update shared file, folder
 if ! [ -d /var/www/rails_app/shared ]; then
@@ -21,6 +21,7 @@ if ! [ -d /var/www/rails_app/shared ]; then
 fi
 
 aws s3 cp s3://blog-cloud-codedeploy/.env /var/www/rails_app/shared
+aws s3 cp s3://blog-cloud-codedeploy/master.key /var/www/rails_app/shared/config
 aws s3 cp s3://blog-cloud-codedeploy/credentials.yml.enc /var/www/rails_app/shared/config
 aws s3 cp s3://blog-cloud-codedeploy/puma.rb /var/www/rails_app/shared/config
 
@@ -28,7 +29,6 @@ aws s3 cp s3://blog-cloud-codedeploy/puma.rb /var/www/rails_app/shared/config
 
 mkdir -p /var/www/rails_app/releases/$RELEASE_FOLDER
 cp -r /home/deploy/blog-cloud/* /var/www/rails_app/releases/$RELEASE_FOLDER
-
 
 # 3
 if [ -d /var/www/rails_app/releases/$RELEASE_FOLDER/log ]; then
@@ -45,6 +45,7 @@ fi
 
 ln -s /var/www/rails_app/shared/.env /var/www/rails_app/releases/$RELEASE_FOLDER/
 ln -s /var/www/rails_app/shared/bundle /var/www/rails_app/releases/$RELEASE_FOLDER/vendor/bundle
+ln -s /var/www/rails_app/shared/config/master.key /var/www/rails_app/releases/$RELEASE_FOLDER/config
 ln -s /var/www/rails_app/shared/config/credentials.yml.enc /var/www/rails_app/releases/$RELEASE_FOLDER/config
 ln -s /var/www/rails_app/shared/config/puma.rb /var/www/rails_app/releases/$RELEASE_FOLDER/config
 ln -s /var/www/rails_app/shared/log /var/www/rails_app/releases/$RELEASE_FOLDER/log
@@ -59,6 +60,8 @@ RAILS_ENV=production /home/deploy/.rbenv/shims/bundle exec rake db:migrate
 
 ln -s /var/www/rails_app/releases/$RELEASE_FOLDER /var/www/rails_app/releases/current
 mv -f /var/www/rails_app/releases/current /var/www/rails_app/
+
+sudo chown -r deploy:deploy /var/www/rails_app/
 
 # restart nginx
 sudo service puma restart
