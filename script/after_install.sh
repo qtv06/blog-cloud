@@ -7,7 +7,7 @@ RED='\033[0;31m'
 NC='\033[0m'
 RELEASE_FOLDER=$(date '+%Y%m%d%H%M%S')
 
-echo -e "${RED}After Install"
+echo -e "${RED}After Install${NC}"
 # echo $(ls)
 
 sudo chown -R deploy:deploy /home/deploy/blog-cloud
@@ -27,7 +27,7 @@ aws s3 cp s3://blog-cloud-codedeploy/puma.rb /var/www/rails_app/shared/config
 # 2 Create release folder
 
 mkdir -p /var/www/rails_app/releases/$RELEASE_FOLDER
-cp -R /home/deploy/blog-cloud/* /var/www/rails_app/releases/$RELEASE_FOLDER
+cp -r /home/deploy/blog-cloud/* /var/www/rails_app/releases/$RELEASE_FOLDER
 
 
 # 3
@@ -51,9 +51,9 @@ ln -s /var/www/rails_app/shared/log /var/www/rails_app/releases/$RELEASE_FOLDER/
 
 # 4 bundle
 cd /var/www/rails_app/releases/$RELEASE_FOLDER
-/home/deploy/.rbenv/shims/bundle install --path=vendor/bundle
-/home/deploy/.rbenv/shims/bundle exec rake db:create
-/home/deploy/.rbenv/shims/bundle exec rake db:migrate
+RAILS_ENV=production /home/deploy/.rbenv/shims/bundle install --path=vendor/bundle
+RAILS_ENV=production /home/deploy/.rbenv/shims/bundle exec rake db:create
+RAILS_ENV=production /home/deploy/.rbenv/shims/bundle exec rake db:migrate
 
 # 5 Link to shared folder
 
